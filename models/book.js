@@ -35,15 +35,12 @@ const bookSchema = new mongoose.Schema({
   }
 })
 
-
-bookSchema.set('toObject', { virtuals: true })
-bookSchema.set('toJSON', { virtuals: true })
-
-bookSchema.virtual('coverImagePath').set(function () {
+bookSchema.virtual('coverImagePath').get(function () {
   if (this.coverImageName != null) {
     return path.join('/', coverImageBasePath, this.coverImageName)
   }
 })
+
 module.exports = mongoose.model('Book', bookSchema);
 module.exports.coverImageBasePath = coverImageBasePath;
 
